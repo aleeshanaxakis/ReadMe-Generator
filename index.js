@@ -11,7 +11,7 @@ inquirer
     {
         type: 'input',
         name: 'description',
-        message: 'Provide a descrption of your project:',
+        message: 'Provide a description of your project:',
     },
     {
         type: 'input',
@@ -31,7 +31,8 @@ inquirer
     {
         type: 'input',
         name: 'license',
-        message: 'What is the project license?',
+        message: 'Choose a license for your project:',
+        choices: ['MIT', 'Apache', 'GPL', 'BSD', 'None'],
     },
     {
         type: 'input',
@@ -55,6 +56,16 @@ inquirer
     }
 ])
 .then((answers) => {
+
+    // License badge and notice mapping
+    const licenseBadges = {
+        MIT: '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)',
+        Apache: '[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)',
+        GPL: '[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)',
+        BSD: '[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)',
+        None: 'This project is not licensed.',
+      };
+
     // Generate the README file
     const readmeContent = `
 # ${answers.title}
@@ -72,7 +83,9 @@ ${answers.installation}
 ${answers.usage}
 
 ## License
-${answers.license}
+${licenseBadges[answers.license]}
+
+${licenseBadges[answers.license] !== 'This project is not licensed.' ? `This project is licensed under the ${answers.license} license.` : 'This project is not licensed.'}
 
 ## Contributing
 ${answers.contributing}
