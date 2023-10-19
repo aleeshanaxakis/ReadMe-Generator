@@ -46,7 +46,7 @@ inquirer
     {
         type: 'input',
         name: 'questions',
-        message: 'How can users reach out with questions?',
+        message: 'What is your Github username and email address?',
     },
 ])
 .then((answers) => {
