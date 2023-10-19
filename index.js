@@ -1,8 +1,8 @@
-const inquirer = require('inquirer');
-const fs = require('fs');
+import inquirer from 'inquirer';
+import fs from 'fs';
 
 inquirer
-.createPromptModule([
+.prompt([
     {
         type: 'input',
         name: 'title',
@@ -51,4 +51,37 @@ inquirer
 ])
 .then((answers) => {
     // Generate the README file
+    const readmeContent = `
+# ${answers.title}
+
+## Description
+${answers.description}
+
+## Table of Contents
+${answers.tableOfContents}
+
+## Installation
+${answers.installation}
+
+## Usage
+${answers.usage}
+
+## License
+${answers.license}
+
+## Contributing
+${answers.contributing}
+
+## Tests
+${answers.tests}
+
+## Questions
+For any questions, please contact [${answers.questions}](mailto:${answers.questions}).
+`;
+
+    // Write the content to README.md
+    fs.writeFile('README.md', readmeContent, (err) => {
+        if (err) throw err;
+        console.log('README.md has been successfully generated!');
+    });
 });
