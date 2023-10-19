@@ -66,6 +66,16 @@ inquirer
         None: 'This project is not licensed.',
       };
 
+    // Create anchor tags for Table of Contents
+    const tableOfContents = answers.tableOfContents
+      .split(',')
+      .map((section) => {
+        const sectionTitle = section.trim();
+        const sectionId = sectionTitle.toLowerCase().replace(/\s+/g, '-');
+        return `[${sectionTitle}](#${sectionId})`;
+      })
+      .join('\n');
+
     // Generate the README file
     const readmeContent = `
 # ${answers.title}
@@ -74,7 +84,7 @@ inquirer
 ${answers.description}
 
 ## Table of Contents
-${answers.tableOfContents}
+${tableOfContents}
 
 ## Installation
 ${answers.installation}
