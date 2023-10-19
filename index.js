@@ -45,9 +45,14 @@ inquirer
     },
     {
         type: 'input',
-        name: 'questions',
-        message: 'What is your Github username and email address?',
+        name: 'githubUsername',
+        message: 'What is your Github username?',
     },
+    {
+        type: 'input',
+        name: 'emailAddress',
+        message: 'What is your email address?',
+    }
 ])
 .then((answers) => {
     // Generate the README file
@@ -76,7 +81,7 @@ ${answers.contributing}
 ${answers.tests}
 
 ## Questions
-For any questions, please contact [${answers.questions}](mailto:${answers.questions}).
+For any questions, please contact [${answers.githubUsername}](mailto:${answers.emailAddress}).
 `;
 
     // Write the content to README.md
