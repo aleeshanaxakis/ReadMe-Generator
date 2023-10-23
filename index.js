@@ -15,11 +15,6 @@ inquirer
     },
     {
         type: 'input',
-        name: 'tableOfContents',
-        message: 'Provide a table of contents:',
-    },
-    {
-        type: 'input',
         name: 'installation',
         message: 'What are the installation instructions?',
     },
@@ -29,7 +24,7 @@ inquirer
         message: 'How do you use this project?',
     },
     {
-        type: 'input',
+        type: 'list',
         name: 'license',
         message: 'Choose a license for your project:',
         choices: ['MIT', 'Apache', 'GPL', 'BSD', 'None'],
@@ -65,26 +60,32 @@ inquirer
         BSD: '[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)',
         None: 'This project is not licensed.',
       };
+    const licenseSection = {
+        MIT: `Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-    // Create anchor tags for Table of Contents
-    const tableOfContents = answers.tableOfContents
-      .split(',')
-      .map((section) => {
-        const sectionTitle = section.trim();
-        const sectionId = sectionTitle.toLowerCase().replace(/\s+/g, '-');
-        return `[${sectionTitle}](#${sectionId})`;
-      })
-      .join('\n');
+        The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.`,
+        Apache: ``,
+        GPL: ``,
+        BSD: ``,
+        None: ``,
+    }
 
     // Generate the README file
     const readmeContent = `
 # ${answers.title}
 
+${licenseBadges[answers.license]}
+
 ## Description
 ${answers.description}
 
 ## Table of Contents
-${tableOfContents}
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+- [Contributing](#contributing)
+- [Tests](#tests)
+- [Questions](#questions)
 
 ## Installation
 ${answers.installation}
@@ -93,9 +94,7 @@ ${answers.installation}
 ${answers.usage}
 
 ## License
-${licenseBadges[answers.license]}
-
-${licenseBadges[answers.license] !== 'This project is not licensed.' ? `This project is licensed under the ${answers.license} license.` : 'This project is not licensed.'}
+${licenseSection[answers.license]}
 
 ## Contributing
 ${answers.contributing}
@@ -104,7 +103,7 @@ ${answers.contributing}
 ${answers.tests}
 
 ## Questions
-For any questions, please contact [${answers.githubUsername}](mailto:${answers.emailAddress}).
+For any questions, please contact <a href = "https://github.com/${answers.githubUsername}">Github Profile</a> <a href="mailto:${answers.emailAddress}">Email Me</a>
 `;
 
     // Write the content to README.md
