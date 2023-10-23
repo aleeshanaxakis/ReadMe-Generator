@@ -79,9 +79,9 @@ inquirer
 
     // Generate the README file
     const readmeContent = `
-# ${answers.title}
-
 ${licenseBadges[answers.license]}
+
+# ${answers.title}
 
 ## Description
 ${answers.description}
